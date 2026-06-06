@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Swayam Ruparel — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #F7F4EF;
+  --page: #FEFCF9;
+  --ink: #181412;
+  --mid: #3D3530;
+  --muted: #857870;
+  --light: #B5AAA2;
+  --accent: #C0392B;
+  --accent2: #8B1A0F;
+  --rule: #D8CFC8;
+  --tag-bg: #EDE8E2;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--bg);}
+body{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:9.2pt;
+  line-height:1.5;
+  color:var(--ink);
+  background:var(--bg);
+  print-color-adjust:exact;
+  -webkit-print-color-adjust:exact;
+}
+.page{
+  max-width:800px;
+  margin:36px auto;
+  background:var(--page);
+  box-shadow:0 4px 40px rgba(24,20,18,.13);
+  display:grid;
+  grid-template-columns:220px 1fr;
+  min-height:1040px;
+}
+
+/* ── LEFT COLUMN ── */
+.left{
+  background:#1C1714;
+  color:#E8E0D8;
+  padding:40px 24px 40px 28px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+.name-block{}
+.name-block h1{
+  font-family:'Playfair Display',serif;
+  font-size:22pt;
+  font-weight:700;
+  line-height:1.1;
+  color:#FAF6F2;
+  letter-spacing:-0.01em;
+}
+.name-block .degree{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.5pt;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#9A8F87;
+  margin-top:8px;
+  line-height:1.6;
+}
+
+.l-section-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6pt;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+  border-bottom:1px solid #3A302C;
+  padding-bottom:6px;
+  margin-bottom:10px;
+}
+
+.contact-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.contact-list li{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.8pt;
+  color:#B0A5A0;
+  word-break:break-all;
+  line-height:1.4;
+}
+.contact-list li a{color:#C8BEB8;text-decoration:none;}
+.contact-list li a:hover{color:var(--accent);}
+.contact-list li .icon{
+  display:inline-block;
+  width:14px;
+  color:var(--accent);
+  font-style:normal;
+  flex-shrink:0;
+}
+.contact-list li{display:flex;align-items:flex-start;gap:4px;}
+
+.skill-group{margin-bottom:12px;}
+.skill-group:last-child{margin-bottom:0;}
+.skill-cat{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6pt;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#7A6F6A;
+  margin-bottom:5px;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.skill-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.5pt;
+  background:#2C2320;
+  color:#C8BEB8;
+  padding:2px 7px;
+  border-radius:2px;
+  border:1px solid #3D3330;
+  letter-spacing:.04em;
+}
+
+.cert-item{
+  font-size:8pt;
+  color:#B0A5A0;
+  line-height:1.5;
+  padding-left:10px;
+  position:relative;
+}
+.cert-item::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:7pt;}
+.cert-item strong{color:#D8D0C8;display:block;font-weight:500;}
+
+.interests-list{
+  font-size:8pt;
+  color:#9A908A;
+  line-height:1.8;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-weight:300;
+  font-style:italic;
+}
+
+/* ── RIGHT COLUMN ── */
+.right{
+  padding:40px 36px 40px 36px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.r-section{margin-bottom:22px;}
+.r-section:last-child{margin-bottom:0;}
+
+.r-section-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.2pt;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.r-section-title::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--rule);
+}
+
+.entry{margin-bottom:14px;}
+.entry:last-child{margin-bottom:0;}
+
+.entry-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:8px;
+}
+.entry-title{
+  font-family:'Playfair Display',serif;
+  font-size:10.5pt;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.2;
+}
+.entry-title a{color:var(--ink);text-decoration:none;}
+.entry-date{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.5pt;
+  color:var(--light);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.entry-sub{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:8.5pt;
+  font-weight:300;
+  font-style:italic;
+  color:var(--muted);
+  margin-top:1px;
+}
+.entry-link{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.5pt;
+  color:var(--accent);
+  text-decoration:none;
+  display:inline-block;
+  margin-top:2px;
+  letter-spacing:.02em;
+  border-bottom:1px solid transparent;
+}
+.entry-link:hover{border-color:var(--accent);}
+
+.bullets{list-style:none;margin-top:5px;padding:0;display:flex;flex-direction:column;gap:3px;}
+.bullets li{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:8.5pt;
+  font-weight:300;
+  color:var(--mid);
+  padding-left:13px;
+  position:relative;
+  line-height:1.45;
+}
+.bullets li::before{
+  content:'—';
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-size:7pt;
+  top:1px;
+}
+
+.confidential-badge{
+  display:inline-block;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:5.8pt;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  background:#FFF0EE;
+  color:var(--accent);
+  border:1px solid #F5C8C4;
+  padding:1px 6px;
+  border-radius:2px;
+  vertical-align:middle;
+  margin-left:6px;
+}
+
+/* education */
+.edu-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.cgpa-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:7pt;
+  background:var(--tag-bg);
+  color:var(--mid);
+  padding:2px 8px;
+  border-radius:2px;
+  border:1px solid var(--rule);
+  flex-shrink:0;
+}
+
+/* hackathons row */
+.hack-row{display:flex;flex-wrap:wrap;gap:6px;}
+.hack-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.8pt;
+  background:var(--tag-bg);
+  color:var(--mid);
+  padding:3px 10px;
+  border-radius:2px;
+  border:1px solid var(--rule);
+  letter-spacing:.04em;
+}
+
+/* research */
+.paper-box{
+  border-left:2px solid var(--accent);
+  padding:8px 0 8px 12px;
+  margin-top:4px;
+}
+.paper-title{
+  font-family:'Playfair Display',serif;
+  font-size:9.5pt;
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.4;
+}
+.paper-meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:6.5pt;
+  color:var(--muted);
+  margin-top:3px;
+  letter-spacing:.04em;
+}
+
+@media print{
+  html,body{background:white;}
+  .page{
+    max-width:none;margin:0;
+    box-shadow:none;
+    grid-template-columns:198px 1fr;
+    min-height:0;
+  }
+  .left{padding:28px 20px 28px 24px;}
+  .right{padding:28px 28px 28px 28px;}
+  body{font-size:8.8pt;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="name-block">
+      <h1>Swayam<br>Ruparel</h1>
+      <div class="degree">B.Tech Computer<br>Engineering · 2024–28<br>FCRIT, Navi Mumbai</div>
+    </div>
+
+    <div>
+      <div class="l-section-title">Contact</div>
+      <ul class="contact-list">
+        <li><span class="icon">✉</span><a href="mailto:swayam.ruparel@gmail.com">swayam.ruparel@gmail.com</a></li>
+        <li><span class="icon">◎</span><a href="https://swayamruparel.com" target="_blank">swayamruparel.com</a></li>
+        <li><span class="icon">in</span><a href="https://www.linkedin.com/in/swayam-ruparel-577925295/" target="_blank">linkedin/swayam-ruparel</a></li>
+        <li><span class="icon">⌥</span><a href="https://github.com/gitruparel" target="_blank">github/gitruparel</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="l-section-title">Technical Skills</div>
+      <div class="skill-group">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">React</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Tools & Platforms</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Firebase</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">CS Core</div>
+        <div class="skill-tags">
+          <span class="skill-tag">DSA</span>
+          <span class="skill-tag">OS</span>
+          <span class="skill-tag">CN</span>
+          <span class="skill-tag">AOA</span>
+          <span class="skill-tag">IoT</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="l-section-title">Certification</div>
+      <div class="cert-item">
+        <strong>CS50P</strong>
+        Introduction to Programming with Python<br>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:6pt;color:#6A6060;letter-spacing:.08em;">HARVARD UNIVERSITY</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="l-section-title">Interests</div>
+      <div class="interests-list">
+        Mobile App Development<br>
+        Software Engineering<br>
+        Startups & Entrepreneurship<br>
+        AI Applications<br>
+        Product Design
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <!-- EDUCATION -->
+    <div class="r-section">
+      <div class="r-section-title">Education</div>
+      <div class="entry">
+        <div class="edu-row">
+          <div>
+            <div class="entry-title">Fr. C. Rodrigues Institute of Technology</div>
+            <div class="entry-sub">B.Tech — Computer Engineering, Vashi, Navi Mumbai</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+            <span class="entry-date">2024 – 2028</span>
+            <span class="cgpa-badge">CGPA 8.25</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="r-section">
+      <div class="r-section-title">Projects</div>
+
+      <!-- MedSync -->
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">MedSync</div>
+          <span class="entry-date">2024 – 2025</span>
+        </div>
+        <div class="entry-sub">Cloud-Based Healthcare Management System · React Native, Firebase</div>
+        <a class="entry-link" href="https://github.com/gitruparel/MedSync" target="_blank">github.com/gitruparel/MedSync</a>
+        <ul class="bullets">
+          <li>Built a cross-platform mobile app for managing appointments, medical records, and prescriptions with real-time sync via Firebase.</li>
+          <li>Implemented multi-role architecture supporting patient, doctor, and admin workflows with Firebase Authentication and Firestore.</li>
+          <li>Developed in a 4-member team; co-authored an IEEE research paper documenting system architecture and clinical use-cases.</li>
+        </ul>
+      </div>
+
+      <!-- AlgoBot -->
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">AlgoBot <span class="confidential-badge">Production · Confidential</span></div>
+          <span class="entry-date">2025</span>
+        </div>
+        <div class="entry-sub">Algorithmic Trading Automation Platform</div>
+        <ul class="bullets">
+          <li>Designed and deployed a production-grade trading automation system currently used in real-world workflows.</li>
+          <li>Built automation logic, monitoring pipelines, and backend integrations; maintained under business confidentiality constraints.</li>
+        </ul>
+      </div>
+
+      <!-- Personal Dashboard -->
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">Personal Dashboard</div>
+          <span class="entry-date">2025</span>
+        </div>
+        <div class="entry-sub">Productivity & Personal Analytics Dashboard · JavaScript</div>
+        <a class="entry-link" href="https://github.com/gitruparel/personal-dashboard" target="_blank">github.com/gitruparel/personal-dashboard</a>
+        <ul class="bullets">
+          <li>Built a personal productivity hub with task tracking, goal monitoring, and data visualisation for daily analytics.</li>
+        </ul>
+      </div>
+
+      <!-- F1 Simulator -->
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">F1 Strategy Simulator</div>
+          <span class="entry-date">2025</span>
+        </div>
+        <div class="entry-sub">Physics-Based Race Strategy Engine · JavaScript, Node.js</div>
+        <a class="entry-link" href="https://github.com/gitruparel/f1-strategy-simulator" target="_blank">github.com/gitruparel/f1-strategy-simulator</a>
+        <ul class="bullets">
+          <li>Engineered a physics-based tyre degradation model with exponential penalty curves for over-stinted compounds and dynamic weather parameters.</li>
+          <li>Implemented a server-side API proxy to fetch live Ergast F1 telemetry data, bypassing CORS restrictions for real race data.</li>
+          <li>Supports multi-stop strategies with configurable tyre compound allocation per stint.</li>
+        </ul>
+      </div>
+
+      <!-- ShatterBlocks -->
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">ShatterBlocks</div>
+          <span class="entry-date">2024</span>
+        </div>
+        <div class="entry-sub">Brick Breaker Game Built from Scratch · C, SDL2</div>
+        <a class="entry-link" href="https://github.com/gitruparel/ShatterBlocks" target="_blank">github.com/gitruparel/ShatterBlocks</a>
+        <ul class="bullets">
+          <li>Implemented a full game loop, collision detection system, and score persistence in C using SDL2, SDL_mixer, and SDL_ttf.</li>
+          <li>Integrated synthwave audio and real-time visual effects from scratch — no game engine used.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="r-section">
+      <div class="r-section-title">Research</div>
+      <div class="paper-box">
+        <div class="paper-title">MedSync: A Real-Time Healthcare Management System Using Cloud-Based Architecture</div>
+        <div class="paper-meta">IEEE · ICCUBEA Conference &nbsp;·&nbsp; Co-Author &nbsp;·&nbsp; 2025</div>
+      </div>
+    </div>
+
+    <!-- LEADERSHIP -->
+    <div class="r-section">
+      <div class="r-section-title">Leadership & Positions</div>
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">Deputy PR Head — Green Club, FCRIT</div>
+          <span class="entry-date">Sem 4 · 2025</span>
+        </div>
+        <ul class="bullets">
+          <li>Managed communications and outreach for a student council overseeing ~150 members.</li>
+          <li>Coordinated event promotion and cross-team collaboration for college-wide sustainability initiatives.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HACKATHONS -->
+    <div class="r-section">
+      <div class="r-section-title">Hackathons</div>
+      <div class="hack-row">
+        <span class="hack-tag">Smart India Hackathon (SIH)</span>
+        <span class="hack-tag">EY Techathon</span>
+        <span class="hack-tag">HackQuinox</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
