@@ -8,37 +8,34 @@ export default function NowWidget() {
       <div className="now-widget-header">
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <span className="live-dot" />
-          <span className="now-widget-title">SYSTEM STATUS // NOW</span>
+          <span className="now-widget-title">NOW // ACTIVE FOCUS</span>
         </div>
-        <span className="now-widget-updated">Updated {nowData.lastUpdated}</span>
       </div>
 
       <div className="now-widget-body">
-        <div className="now-widget-item">
-          <span className="now-widget-label">Building</span>
-          <ul className="now-widget-list">
-            {nowData.building.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+        {/* Status Badge */}
+        <div className="now-widget-status-badge">
+          <span>●</span> {nowData.statusBadge}
         </div>
 
+        {/* Building */}
+        <div className="now-widget-item">
+          <span className="now-widget-label">Building</span>
+          <span className="now-widget-value">TestReady.in — Quantitative Options Workspace</span>
+        </div>
+
+        {/* Role */}
         <div className="now-widget-item">
           <span className="now-widget-label">Role</span>
           <span className="now-widget-value">Treasurer @ FCRIT Student Council</span>
         </div>
 
+        {/* Learning & Exploring */}
         <div className="now-widget-item">
-          <span className="now-widget-label">Learning & Exploring</span>
-          <div className="now-widget-tags">
-            {nowData.currentlyExploring.map((tech, i) => (
-              <span key={i} className="now-tag">{tech}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="now-widget-status-badge">
-          <span style={{ color: "#10B981" }}>●</span> {nowData.statusBadge}
+          <span className="now-widget-label">Exploring</span>
+          <span className="now-widget-value" style={{ color: "var(--text-secondary)" }}>
+            Kubernetes · Distributed Systems · AI Agents
+          </span>
         </div>
       </div>
     </div>

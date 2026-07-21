@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, FileText, ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
+import { animate, stagger } from "animejs";
 
 import { projects } from "@/data/projects";
 import { overviewMetrics } from "@/data/overview";
@@ -23,6 +24,29 @@ export default function Home() {
   const testreadyProject = projects.find((p) => p.id === "testready");
   const deptProject = projects.find((p) => p.id === "dept-internship");
   const gridProjects = projects.filter((p) => !p.isFlagship);
+
+  useEffect(() => {
+    // Anime.js entrance stagger for Hero elements
+    try {
+      animate(".hero-subtitle, .hero-title, .hero-desc, .hero-actions", {
+        translateY: [25, 0],
+        opacity: [0, 1],
+        delay: stagger(120),
+        duration: 800,
+        ease: "outCubic",
+      });
+
+      animate(".overview-card", {
+        translateY: [30, 0],
+        opacity: [0, 1],
+        delay: stagger(100),
+        duration: 700,
+        ease: "outCubic",
+      });
+    } catch (err) {
+      console.warn("Anime.js animation fallback:", err);
+    }
+  }, []);
 
   const handleOpenDrawer = (project) => {
     setActiveProject(project);

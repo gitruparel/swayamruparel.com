@@ -68,13 +68,13 @@ export default function Navbar() {
 
             <div className="nav-links-pages">
               <button 
-                onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+                onClick={() => window.dispatchEvent(new CustomEvent("toggle-command-palette"))}
                 className="nav-link-now-pill"
                 title="Search / Command Palette (⌘K)"
                 style={{ cursor: "pointer" }}
               >
-                <Search size={12} />
-                <span>⌘K</span>
+                <Search size={13} />
+                <span>Search ⌘K</span>
               </button>
 
               <Link

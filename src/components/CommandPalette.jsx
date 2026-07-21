@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, FileText, FolderGit2, User, Clock, Home, CornerDownLeft, Sparkles, Code2, ExternalLink } from "lucide-react";
+import { Search, FileText, FolderGit2, User, Clock, Home, CornerDownLeft, Sparkles, X, ExternalLink } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
 import { projects } from "@/data/projects";
 
@@ -18,6 +18,7 @@ export default function CommandPalette() {
       id: "home",
       label: "Go to Home",
       category: "Navigation",
+      keywords: "home start top index",
       action: () => {
         router.push("/");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -29,6 +30,7 @@ export default function CommandPalette() {
       id: `project-${p.id}`,
       label: `${p.name} — ${p.oneLiner}`,
       category: "Projects",
+      keywords: `${p.name} ${p.category} ${p.builtWith.join(" ")} ${p.problem} ${p.solution}`,
       action: () => {
         if (p.liveUrl) {
           window.open(p.liveUrl, "_blank");
@@ -47,6 +49,7 @@ export default function CommandPalette() {
       id: "now",
       label: "View Now Page",
       category: "Navigation",
+      keywords: "now updates active current exploring",
       action: () => router.push("/now"),
       icon: <Clock size={16} />,
       shortcut: "N",
@@ -55,6 +58,7 @@ export default function CommandPalette() {
       id: "resume",
       label: "Open Resume (PDF)",
       category: "Navigation",
+      keywords: "resume cv pdf download experience background",
       action: () => router.push("/resume"),
       icon: <FileText size={16} />,
       shortcut: "R",
@@ -63,6 +67,7 @@ export default function CommandPalette() {
       id: "github",
       label: "Open GitHub Profile",
       category: "Socials",
+      keywords: "github git code repo source",
       action: () => window.open("https://github.com/gitruparel", "_blank"),
       icon: <Github size={16} />,
       shortcut: "G",
@@ -71,6 +76,7 @@ export default function CommandPalette() {
       id: "linkedin",
       label: "Open LinkedIn Profile",
       category: "Socials",
+      keywords: "linkedin social work background connect network",
       action: () => window.open("https://www.linkedin.com/in/swayam-ruparel-577925295/", "_blank"),
       icon: <Linkedin size={16} />,
       shortcut: "L",
@@ -79,6 +85,7 @@ export default function CommandPalette() {
       id: "contact",
       label: "Get in Touch (Contact)",
       category: "Navigation",
+      keywords: "contact email reach hire touch message",
       action: () => {
         router.push("/#contact");
         setTimeout(() => {
@@ -91,8 +98,14 @@ export default function CommandPalette() {
     }
   ];
 
-  // Listen for ⌘K / Ctrl+K or / globally
+  // Global Event Listener for custom toggle event & ⌘K / Ctrl+K / /
   useEffect(() => {
+    const handleToggle = () => {
+      setIsOpen((prev) => !prev);
+      setSearch("");
+      setSelectedIndex(0);
+    };
+
     const handleKeyDown = (e) => {
       const activeElement = document.activeElement;
       const isTyping = activeElement && (
@@ -101,32 +114,44 @@ export default function CommandPalette() {
         activeElement.isContentEditable
       );
 
-      // Support ⌘K (Mac) or Ctrl+K (Windows) or / key
+      // Support ⌘K (Mac), Ctrl+K (Windows/Linux), or / key
       if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") || (e.key === "/" && !isTyping)) {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
-        setSearch("");
-        setSelectedIndex(0);
+        handleToggle();
       } else if (e.key === "Escape" && isOpen) {
         e.preventDefault();
         setIsOpen(false);
       }
     };
 
+    window.addEventListener("toggle-command-palette", handleToggle);
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("toggle-command-palette", handleToggle);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen]);
 
+  // Focus input whenever palette opens
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 50);
     }
   }, [isOpen]);
 
-  const filteredCommands = commands.filter((cmd) =>
-    cmd.label.toLowerCase().includes(search.toLowerCase()) ||
-    cmd.category.toLowerCase().includes(search.toLowerCase())
-  );
+  const query = search.trim().toLowerCase();
+
+  const filteredCommands = query === "" 
+    ? commands 
+    : commands.filter((cmd) =>
+        cmd.label.toLowerCase().includes(query) ||
+        cmd.category.toLowerCase().includes(query) ||
+        (cmd.keywords && cmd.keywords.toLowerCase().includes(query))
+      );
 
   const handleKeyDown = (e) => {
     if (filteredCommands.length === 0) return;
@@ -148,22 +173,28 @@ export default function CommandPalette() {
   if (!isOpen) return null;
 
   return (
-    <div className={`command-backdrop ${isOpen ? "active" : ""}`} onClick={() => setIsOpen(false)}>
+    <div className="command-backdrop active" onClick={() => setIsOpen(false)}>
       <div className="command-palette" onClick={(e) => e.stopPropagation()} onKeyDown={handleKeyDown}>
         <div className="command-input-container">
-          <Search size={18} className="command-search-icon" />
+          <Search size={20} className="command-search-icon" />
           <input
             ref={inputRef}
             type="text"
             className="command-input"
-            placeholder="Type a command or search (⌘K)..."
+            placeholder="Type to search projects, resume, links (⌘K)..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
               setSelectedIndex(0);
             }}
           />
-          <span className="command-shortcut" style={{ fontSize: "0.65rem" }}>ESC</span>
+          <button 
+            onClick={() => setIsOpen(false)}
+            style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", display: "flex", alignItems: "center" }}
+            aria-label="Close command palette"
+          >
+            <X size={18} />
+          </button>
         </div>
 
         <ul className="command-list">
@@ -180,26 +211,26 @@ export default function CommandPalette() {
               >
                 <div className="command-item-left">
                   {cmd.icon}
-                  <span>{cmd.label}</span>
+                  <span style={{ fontWeight: idx === selectedIndex ? "600" : "400" }}>{cmd.label}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   {idx === selectedIndex && (
-                    <CornerDownLeft size={10} style={{ opacity: 0.5 }} />
+                    <CornerDownLeft size={12} style={{ color: "var(--primary-accent)" }} />
                   )}
                   <span className="command-shortcut">{cmd.shortcut}</span>
                 </div>
               </li>
             ))
           ) : (
-            <li className="command-item" style={{ pointerEvents: "none", color: "var(--text-muted)", justifyContent: "center" }}>
-              No matching commands found.
+            <li className="command-item" style={{ pointerEvents: "none", color: "var(--text-muted)", justifyContent: "center", padding: "1.5rem 0" }}>
+              No matching commands or projects found.
             </li>
           )}
         </ul>
 
         <div className="command-palette-hint">
-          <span>Use ↑↓ keys to navigate, <span className="command-shortcut" style={{ fontSize: "0.6rem", padding: "0.05rem 0.25rem" }}>Enter</span> to select</span>
-          <span>swayamruparel.com v3.0</span>
+          <span>Use <span className="command-shortcut">↑</span> <span className="command-shortcut">↓</span> to navigate, <span className="command-shortcut">↵</span> to select</span>
+          <span>swayamruparel.com</span>
         </div>
       </div>
     </div>
