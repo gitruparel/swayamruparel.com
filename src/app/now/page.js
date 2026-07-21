@@ -51,15 +51,15 @@ export default function NowPage() {
         <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
           <li style={{ display: "flex", gap: "0.75rem", fontSize: "1.05rem", color: "var(--text-secondary)" }}>
             <span style={{ color: "var(--primary-accent)" }}>—</span>
-            <span>Scaling <strong>AlgoBot</strong> (a trading automation engine) to execute strategies in live workflows.</span>
+            <span>Scaling <strong>TestReady.in</strong> — a production quantitative options strategy research and backtesting platform.</span>
           </li>
           <li style={{ display: "flex", gap: "0.75rem", fontSize: "1.05rem", color: "var(--text-secondary)" }}>
             <span style={{ color: "var(--primary-accent)" }}>—</span>
-            <span>Exploring street photography and staying active through consistent gym routines.</span>
+            <span>Building backend automation pipelines for my <strong>Department Internship Project</strong>.</span>
           </li>
           <li style={{ display: "flex", gap: "0.75rem", fontSize: "1.05rem", color: "var(--text-secondary)" }}>
             <span style={{ color: "var(--primary-accent)" }}>—</span>
-            <span>Preparing for upcoming engineering & product-oriented internships where I can ship actual products.</span>
+            <span>Exploring <strong>AI agents & system design</strong>, while maintaining gym consistency and street photography.</span>
           </li>
         </ul>
       </section>

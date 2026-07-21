@@ -179,6 +179,46 @@ export default function ResumePage() {
             <div className="r-section">
               <div className="r-section-title">Projects</div>
 
+              {/* TestReady.in */}
+              <div className="entry">
+                <div className="entry-head">
+                  <div className="entry-title">TestReady.in <span className="confidential-badge" style={{ backgroundColor: "rgba(16, 185, 129, 0.15)", color: "#10B981", borderColor: "rgba(16, 185, 129, 0.3)" }}>Live · Production</span></div>
+                  <span className="entry-date">2025 – Present</span>
+                </div>
+                <div className="entry-sub">Intelligent Quantitative Options Strategy Platform · React, TypeScript, Python, Flask, Py5Paisa API</div>
+                <a className="entry-link" href="https://testready.in" target="_blank" rel="noopener noreferrer">testready.in</a>
+                <ul className="bullets">
+                  <li>Built and deployed an end-to-end quantitative options strategy research & backtesting platform used in live production.</li>
+                  <li>Engineered low-latency backtesting algorithms processing multi-year tick data, ApexCharts analytics, and real-time Py5Paisa broker execution.</li>
+                </ul>
+              </div>
+
+              {/* Department Internship Project */}
+              <div className="entry">
+                <div className="entry-head">
+                  <div className="entry-title">Department Internship Project</div>
+                  <span className="entry-date">Ongoing</span>
+                </div>
+                <div className="entry-sub">Institutional Engineering Automation Project · Python, JavaScript, SQL</div>
+                <ul className="bullets">
+                  <li>Developing automated data processing and monitoring pipelines for departmental engineering operations under academic supervision.</li>
+                </ul>
+              </div>
+
+              {/* Smart Bedroom Hub */}
+              <div className="entry">
+                <div className="entry-head">
+                  <div className="entry-title">Smart Bedroom Hub</div>
+                  <span className="entry-date">2024 – 2025</span>
+                </div>
+                <div className="entry-sub">Hardware-Repurposed IoT Home Gateway · Cloudflare Workers, Firebase, Android, IR Protocol</div>
+                <a className="entry-link" href="https://github.com/gitruparel" target="_blank" rel="noopener noreferrer">github.com/gitruparel</a>
+                <ul className="bullets">
+                  <li>Repurposed legacy Android hardware into an always-on IR smart home hub with Cloudflare Worker edge APIs and Firebase sub-100ms signaling.</li>
+                  <li>Integrated Telegram Bot webhooks and Siri Shortcuts to remotely control AC hardware and stream WebRTC video feeds.</li>
+                </ul>
+              </div>
+
               {/* MedSync */}
               <div className="entry">
                 <div className="entry-head">
@@ -189,34 +229,7 @@ export default function ResumePage() {
                 <a className="entry-link" href="https://github.com/gitruparel/MedSync" target="_blank" rel="noopener noreferrer">github.com/gitruparel/MedSync</a>
                 <ul className="bullets">
                   <li>Built a cross-platform mobile app for managing appointments, medical records, and prescriptions with real-time sync via Firebase.</li>
-                  <li>Implemented multi-role architecture supporting patient, doctor, and admin workflows with Firebase Authentication and Firestore.</li>
                   <li>Developed in a 4-member team; co-authored an IEEE research paper documenting system architecture and clinical use-cases.</li>
-                </ul>
-              </div>
-
-              {/* AlgoBot */}
-              <div className="entry">
-                <div className="entry-head">
-                  <div className="entry-title">AlgoBot <span className="confidential-badge">Production · Confidential</span></div>
-                  <span className="entry-date">2025</span>
-                </div>
-                <div className="entry-sub">Algorithmic Trading Automation Platform</div>
-                <ul className="bullets">
-                  <li>Designed and deployed a production-grade trading automation system currently used in real-world workflows.</li>
-                  <li>Built automation logic, monitoring pipelines, and backend integrations; maintained under business confidentiality constraints.</li>
-                </ul>
-              </div>
-
-              {/* Personal Dashboard */}
-              <div className="entry">
-                <div className="entry-head">
-                  <div className="entry-title">Personal Dashboard</div>
-                  <span className="entry-date">2025</span>
-                </div>
-                <div className="entry-sub">Productivity & Personal Analytics Dashboard · JavaScript</div>
-                <a className="entry-link" href="https://github.com/gitruparel/personal-dashboard" target="_blank" rel="noopener noreferrer">github.com/gitruparel/personal-dashboard</a>
-                <ul className="bullets">
-                  <li>Built a personal productivity hub with task tracking, goal monitoring, and data visualisation for daily analytics.</li>
                 </ul>
               </div>
 
@@ -231,7 +244,6 @@ export default function ResumePage() {
                 <ul className="bullets">
                   <li>Engineered a physics-based tyre degradation model with exponential penalty curves for over-stinted compounds and dynamic weather parameters.</li>
                   <li>Implemented a server-side API proxy to fetch live Ergast F1 telemetry data, bypassing CORS restrictions for real race data.</li>
-                  <li>Supports multi-stop strategies with configurable tyre compound allocation per stint.</li>
                 </ul>
               </div>
 
@@ -244,8 +256,7 @@ export default function ResumePage() {
                 <div className="entry-sub">Brick Breaker Game Built from Scratch · C, SDL2</div>
                 <a className="entry-link" href="https://github.com/gitruparel/ShatterBlocks" target="_blank" rel="noopener noreferrer">github.com/gitruparel/ShatterBlocks</a>
                 <ul className="bullets">
-                  <li>Implemented a full game loop, collision detection system, and score persistence in C using SDL2, SDL_mixer, and SDL_ttf.</li>
-                  <li>Integrated synthwave audio and real-time visual effects from scratch — no game engine used.</li>
+                  <li>Implemented a full game loop, AABB collision detection system, and score persistence in C using SDL2 without third-party game engines.</li>
                 </ul>
               </div>
             </div>

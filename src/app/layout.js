@@ -24,13 +24,16 @@ export const metadata = {
     template: "%s | Swayam Ruparel",
   },
   description:
-    "Personal website of Swayam Ruparel — builder, engineer, and product thinker. Exploring ideas, writing software, and shipping products for real users.",
+    "Personal website of Swayam Ruparel — Computer Engineering student building production software, AI systems, and hardware projects. Creator of TestReady.in.",
   keywords: [
     "Swayam Ruparel",
     "swayamruparel",
+    "TestReady.in",
+    "TestReady",
     "Swayam Ruparel portfolio",
     "Swayam Ruparel developer",
     "Swayam Ruparel engineer",
+    "options trading backtest",
     "builder engineer product thinker",
     "software engineer India",
     "personal portfolio website",
@@ -56,7 +59,7 @@ export const metadata = {
   openGraph: {
     title: "Swayam Ruparel — Builder. Engineer. Product Thinker.",
     description:
-      "Personal website of Swayam Ruparel — builder, engineer, and product thinker. Exploring ideas, writing software, and shipping products for real users.",
+      "Personal website of Swayam Ruparel — Computer Engineering student building production software, AI systems, and hardware projects. Creator of TestReady.in.",
     url: "https://swayamruparel.com",
     siteName: "Swayam Ruparel",
     locale: "en_US",
@@ -74,7 +77,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Swayam Ruparel — Builder. Engineer. Product Thinker.",
     description:
-      "Personal website of Swayam Ruparel — builder, engineer, and product thinker.",
+      "Personal website of Swayam Ruparel — Computer Engineering student building production software & systems. Creator of TestReady.in.",
     creator: "@swayamruparel",
     images: ["/og-image.png"],
   },
@@ -91,21 +94,24 @@ const personJsonLd = {
   alternateName: "swayamruparel",
   url: "https://swayamruparel.com",
   sameAs: [
-    "https://github.com/swayamruparel",
-    "https://linkedin.com/in/swayamruparel",
+    "https://github.com/gitruparel",
+    "https://www.linkedin.com/in/swayam-ruparel-577925295/",
   ],
   jobTitle: "Builder · Engineer · Product Thinker",
   description:
-    "Swayam Ruparel is a builder, engineer, and product thinker who writes software and ships products for real users.",
+    "Swayam Ruparel is a Computer Engineering student building production software, AI systems, and hardware projects. Creator of TestReady.in.",
   knowsAbout: [
     "Software Engineering",
     "Product Development",
-    "Trading Systems",
-    "Algorithmic Trading",
+    "Quantitative Trading Systems",
+    "TestReady.in",
+    "Options Backtesting",
     "Python",
-    "JavaScript",
+    "TypeScript",
     "React",
     "Next.js",
+    "Flask",
+    "IoT & Hardware Automation",
   ],
 };
 

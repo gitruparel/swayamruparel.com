@@ -32,6 +32,7 @@
 
 html {
   scroll-padding-top: 5.5rem;
+  background-color: var(--bg-color);
 }
 
 @media (max-width: 768px) {
@@ -830,6 +831,35 @@ a {
   color: var(--accent-red);
   border-color: var(--accent-red);
   background-color: rgba(220, 38, 38, 0.05);
+}
+
+.build-tag.flagship-tag {
+  color: var(--primary-accent);
+  border-color: var(--primary-accent);
+  background-color: rgba(37, 99, 235, 0.1);
+  font-weight: 800;
+}
+
+.live-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 6px #10B981;
 }
 
 .build-title {

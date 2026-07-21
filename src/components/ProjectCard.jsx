@@ -9,21 +9,28 @@ export default function ProjectCard({ project, index, onOpenDrawer }) {
 
   const isAlternate = index % 2 !== 0;
 
-  // Highlight color based on category
-  const isRedAccent = project.id === "algobot" || project.id === "f1-strategy-simulator";
+  const isFlagship = project.id === "testready";
+  const isRedAccent = project.id === "f1-strategy-simulator";
 
   return (
     <div 
-      className={`build-item ${isAlternate ? "alternate" : ""}`}
+      className={`build-item ${isAlternate ? "alternate" : ""} ${isFlagship ? "flagship-card" : ""}`}
       onClick={handleCardClick}
       style={{ cursor: "pointer" }}
     >
       {/* Content Side */}
       <div className="build-content">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span className={`build-tag ${isRedAccent ? "red-tag" : ""}`}>
-            {project.category}
-          </span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+            <span className={`build-tag ${isRedAccent ? "red-tag" : ""} ${isFlagship ? "flagship-tag" : ""}`}>
+              {project.category}
+            </span>
+            {isFlagship && (
+              <span className="live-status-pill">
+                <span className="live-dot" /> Live • In Production
+              </span>
+            )}
+          </div>
         </div>
 
         <h3 className="build-title" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -48,16 +55,40 @@ export default function ProjectCard({ project, index, onOpenDrawer }) {
           ))}
         </div>
 
-        {/* Action Trigger */}
-        <div className="build-actions desktop-only">
+        {/* Action Triggers */}
+        <div className="build-actions desktop-only" style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="btn-primary"
+              style={{ fontSize: "0.85rem", padding: "0.4rem 0.85rem" }}
+            >
+              Visit {project.name} ↗
+            </a>
+          )}
           <span className="interactive-link" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
-            {project.isConfidential ? "Confidential Overview" : "Read Story"} →
+            Read Case Study →
           </span>
         </div>
 
-        <div className="mobile-only" style={{ marginTop: "1rem" }}>
+        <div className="mobile-only" style={{ marginTop: "1rem", display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="btn-primary"
+              style={{ fontSize: "0.8rem", padding: "0.35rem 0.75rem" }}
+            >
+              Visit {project.name} ↗
+            </a>
+          )}
           <span className="interactive-link" style={{ fontSize: "0.85rem", fontWeight: "600", color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-            {project.isConfidential ? "Confidential Overview" : "Read Story"} →
+            Read Case Study →
           </span>
         </div>
       </div>
