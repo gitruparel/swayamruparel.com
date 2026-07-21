@@ -1,8 +1,8 @@
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import CustomCursor from "@/components/CustomCursor";
 import CommandPalette from "@/components/CommandPalette";
+import EasterEggModal from "@/components/EasterEggModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,11 +20,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   metadataBase: new URL("https://swayamruparel.com"),
   title: {
-    default: "Swayam Ruparel — Builder. Engineer. Product Thinker.",
+    default: "Swayam Ruparel — Computer Engineering Student & Product Builder",
     template: "%s | Swayam Ruparel",
   },
   description:
-    "Personal website of Swayam Ruparel — Computer Engineering student building production software, AI systems, and hardware projects. Creator of TestReady.in.",
+    "Portfolio of Swayam Ruparel — Computer Engineering student building production software, quantitative tools, AI systems, and hardware projects. Creator of TestReady.in.",
   keywords: [
     "Swayam Ruparel",
     "swayamruparel",
@@ -34,9 +34,8 @@ export const metadata = {
     "Swayam Ruparel developer",
     "Swayam Ruparel engineer",
     "options trading backtest",
-    "builder engineer product thinker",
     "software engineer India",
-    "personal portfolio website",
+    "computer engineering portfolio",
   ],
   authors: [{ name: "Swayam Ruparel", url: "https://swayamruparel.com" }],
   creator: "Swayam Ruparel",
@@ -57,9 +56,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Swayam Ruparel — Builder. Engineer. Product Thinker.",
+    title: "Swayam Ruparel — Computer Engineering Student & Product Builder",
     description:
-      "Personal website of Swayam Ruparel — Computer Engineering student building production software, AI systems, and hardware projects. Creator of TestReady.in.",
+      "Portfolio of Swayam Ruparel — Computer Engineering student building production software, quantitative tools, AI systems, and hardware projects. Creator of TestReady.in.",
     url: "https://swayamruparel.com",
     siteName: "Swayam Ruparel",
     locale: "en_US",
@@ -69,15 +68,15 @@ export const metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Swayam Ruparel — Builder. Engineer. Product Thinker.",
+        alt: "Swayam Ruparel — Computer Engineering Student & Product Builder",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Swayam Ruparel — Builder. Engineer. Product Thinker.",
+    title: "Swayam Ruparel — Computer Engineering Student & Product Builder",
     description:
-      "Personal website of Swayam Ruparel — Computer Engineering student building production software & systems. Creator of TestReady.in.",
+      "Portfolio of Swayam Ruparel — Computer Engineering student building production software & systems. Creator of TestReady.in.",
     creator: "@swayamruparel",
     images: ["/og-image.png"],
   },
@@ -97,9 +96,9 @@ const personJsonLd = {
     "https://github.com/gitruparel",
     "https://www.linkedin.com/in/swayam-ruparel-577925295/",
   ],
-  jobTitle: "Builder · Engineer · Product Thinker",
+  jobTitle: "Computer Engineering Student · Product Builder",
   description:
-    "Swayam Ruparel is a Computer Engineering student building production software, AI systems, and hardware projects. Creator of TestReady.in.",
+    "Swayam Ruparel is a Computer Engineering student building production software, AI systems, quantitative tools, and hardware projects. Creator of TestReady.in.",
   knowsAbout: [
     "Software Engineering",
     "Product Development",
@@ -125,18 +124,22 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <div className="bg-orb-container no-print">
-          <div className="bg-orb bg-orb-blue"></div>
-          <div className="bg-orb bg-orb-red"></div>
-          <div className="bg-orb bg-orb-purple"></div>
-          <div className="bg-orb bg-orb-yellow"></div>
+        {/* Layered Canvas Background (#09090B + Grid + Noise + Scrolling Ambient Glow) */}
+        <div className="bg-orb-container">
+          <div className="bg-grid-overlay" />
+          <div className="bg-noise-overlay" />
+          <div className="bg-orb bg-orb-top" />
+          <div className="bg-orb bg-orb-mid" />
+          <div className="bg-orb bg-orb-bot" />
         </div>
-        <div className="no-print">
+
+        <div>
           <Navbar />
-          <CustomCursor />
           <CommandPalette />
+          <EasterEggModal />
         </div>
-        <main style={{ position: "relative" }}>{children}</main>
+
+        <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
       </body>
     </html>
   );

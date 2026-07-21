@@ -2,8 +2,9 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, FileText, FolderGit2, User, Clock, Home, CornerDownLeft } from "lucide-react";
+import { Search, FileText, FolderGit2, User, Clock, Home, CornerDownLeft, Sparkles, Code2, ExternalLink } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
+import { projects } from "@/data/projects";
 
 export default function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function CommandPalette() {
     {
       id: "home",
       label: "Go to Home",
+      category: "Navigation",
       action: () => {
         router.push("/");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -23,50 +25,60 @@ export default function CommandPalette() {
       icon: <Home size={16} />,
       shortcut: "H",
     },
-    {
-      id: "projects",
-      label: "View Things I've Built",
+    ...projects.map((p) => ({
+      id: `project-${p.id}`,
+      label: `${p.name} — ${p.oneLiner}`,
+      category: "Projects",
       action: () => {
-        router.push("/#projects");
-        setTimeout(() => {
-          const el = document.getElementById("projects");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+        if (p.liveUrl) {
+          window.open(p.liveUrl, "_blank");
+        } else {
+          router.push("/#projects");
+          setTimeout(() => {
+            const el = document.getElementById("projects");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
       },
       icon: <FolderGit2 size={16} />,
       shortcut: "P",
-    },
+    })),
     {
       id: "now",
       label: "View Now Page",
+      category: "Navigation",
       action: () => router.push("/now"),
       icon: <Clock size={16} />,
       shortcut: "N",
     },
     {
       id: "resume",
-      label: "Open Resume",
+      label: "Open Resume (PDF)",
+      category: "Navigation",
       action: () => router.push("/resume"),
       icon: <FileText size={16} />,
       shortcut: "R",
     },
     {
       id: "github",
-      label: "Open GitHub",
+      label: "Open GitHub Profile",
+      category: "Socials",
       action: () => window.open("https://github.com/gitruparel", "_blank"),
       icon: <Github size={16} />,
       shortcut: "G",
     },
     {
       id: "linkedin",
-      label: "Open LinkedIn",
+      label: "Open LinkedIn Profile",
+      category: "Socials",
       action: () => window.open("https://www.linkedin.com/in/swayam-ruparel-577925295/", "_blank"),
       icon: <Linkedin size={16} />,
       shortcut: "L",
     },
     {
       id: "contact",
-      label: "Contact Swayam",
+      label: "Get in Touch (Contact)",
+      category: "Navigation",
       action: () => {
         router.push("/#contact");
         setTimeout(() => {
@@ -76,21 +88,23 @@ export default function CommandPalette() {
       },
       icon: <User size={16} />,
       shortcut: "C",
-    },
+    }
   ];
 
-  // Listen for the slash key press globally
+  // Listen for ⌘K / Ctrl+K or / globally
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Check if user is typing in an input/textarea
       const activeElement = document.activeElement;
-      const isTyping = activeElement.tagName === "INPUT" || 
-                       activeElement.tagName === "TEXTAREA" || 
-                       activeElement.isContentEditable;
+      const isTyping = activeElement && (
+        activeElement.tagName === "INPUT" || 
+        activeElement.tagName === "TEXTAREA" || 
+        activeElement.isContentEditable
+      );
 
-      if (e.key === "/" && !isTyping) {
+      // Support ⌘K (Mac) or Ctrl+K (Windows) or / key
+      if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") || (e.key === "/" && !isTyping)) {
         e.preventDefault();
-        setIsOpen(true);
+        setIsOpen((prev) => !prev);
         setSearch("");
         setSelectedIndex(0);
       } else if (e.key === "Escape" && isOpen) {
@@ -103,7 +117,6 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
-  // Handle input focus when palette opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
@@ -111,7 +124,8 @@ export default function CommandPalette() {
   }, [isOpen]);
 
   const filteredCommands = commands.filter((cmd) =>
-    cmd.label.toLowerCase().includes(search.toLowerCase())
+    cmd.label.toLowerCase().includes(search.toLowerCase()) ||
+    cmd.category.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleKeyDown = (e) => {
@@ -142,7 +156,7 @@ export default function CommandPalette() {
             ref={inputRef}
             type="text"
             className="command-input"
-            placeholder="Type a command or search..."
+            placeholder="Type a command or search (⌘K)..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -178,14 +192,14 @@ export default function CommandPalette() {
             ))
           ) : (
             <li className="command-item" style={{ pointerEvents: "none", color: "var(--text-muted)", justifyContent: "center" }}>
-              No commands found.
+              No matching commands found.
             </li>
           )}
         </ul>
 
         <div className="command-palette-hint">
           <span>Use ↑↓ keys to navigate, <span className="command-shortcut" style={{ fontSize: "0.6rem", padding: "0.05rem 0.25rem" }}>Enter</span> to select</span>
-          <span>swayamruparel.com v1.0</span>
+          <span>swayamruparel.com v3.0</span>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, FileText } from "lucide-react";
+import { Menu, X, FileText, Search } from "lucide-react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,7 +14,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsAtTop(window.scrollY < 10);
     };
-    handleScroll(); // run once on mount
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -22,7 +22,6 @@ export default function Navbar() {
   const handleLinkClick = (e, targetId) => {
     setIsMobileMenuOpen(false);
     
-    // If we are on home page, scroll to element
     if (pathname === "/") {
       if (targetId === "hero") {
         e.preventDefault();
@@ -37,25 +36,24 @@ export default function Navbar() {
     }
   };
 
-  const sectionItems = [
-    { label: "Things I've Built", targetId: "projects", href: "/#projects" },
-    { label: "About", targetId: "about", href: "/#about" },
-    { label: "Contact", targetId: "contact", href: "/#contact" },
+  const navItems = [
+    { label: "Projects", targetId: "projects", href: "/#projects" },
+    { label: "Stack", targetId: "stack", href: "/#stack" },
+    { label: "About", targetId: "beyond-code", href: "/#beyond-code" },
   ];
 
   return (
     <>
-      <nav className={`navbar${isAtTop && !isMobileMenuOpen ? " navbar-at-top" : ""}`}>
+      <nav className={`navbar ${isAtTop && !isMobileMenuOpen ? "navbar-at-top" : ""}`}>
         <div className="navbar-container">
           <Link href="/" onClick={(e) => handleLinkClick(e, "hero")} className="logo">
-            Swayam Ruparel<span className="logo-dot"></span>
+            Swayam Ruparel<span className="logo-dot" />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="nav-links-wrapper">
-            {/* Scroll-to-sections */}
             <ul className="nav-links-sections">
-              {sectionItems.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
@@ -68,15 +66,25 @@ export default function Navbar() {
               ))}
             </ul>
 
-            {/* Separate Pages (Now, Resume) */}
             <div className="nav-links-pages">
+              <button 
+                onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+                className="nav-link-now-pill"
+                title="Search / Command Palette (⌘K)"
+                style={{ cursor: "pointer" }}
+              >
+                <Search size={12} />
+                <span>⌘K</span>
+              </button>
+
               <Link
                 href="/now"
                 className={`nav-link-now-pill ${pathname === "/now" ? "nav-link-now-pill-active" : ""}`}
               >
-                <span className="now-dot"></span>
+                <span className="now-dot" />
                 Now
               </Link>
+
               <Link href="/resume" className="btn-resume-nav">
                 <FileText size={14} />
                 Resume
@@ -101,18 +109,17 @@ export default function Navbar() {
 
       {/* Mobile Menu Full-Screen Overlay */}
       <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
-        {/* Large, high-contrast close button in top right */}
         <button
           className="mobile-menu-close"
           onClick={() => setIsMobileMenuOpen(false)}
           aria-label="Close menu"
         >
-          <X size={28} />
+          <X size={24} />
         </button>
 
         <div className="mobile-menu-content">
           <ul className="mobile-menu-sections">
-            {sectionItems.map((item) => (
+            {navItems.map((item) => (
               <li key={item.label}>
                 <a
                   href={item.href}
@@ -125,29 +132,23 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Separate Pages Styled Container */}
-          <div className="mobile-menu-pages-container">
-            <div className="mobile-menu-pages-label">
-              Separate Pages
-            </div>
-            <div className="mobile-menu-pages-links">
-              <Link
-                href="/now"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`nav-link-now-pill ${pathname === "/now" ? "nav-link-now-pill-active" : ""}`}
-              >
-                <span className="now-dot"></span>
-                Now
-              </Link>
-              <Link
-                href="/resume"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="btn-resume-nav"
-              >
-                <FileText size={14} />
-                Resume
-              </Link>
-            </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
+            <Link
+              href="/now"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="btn-secondary"
+              style={{ justifyContent: "center" }}
+            >
+              <span className="now-dot" /> View Now Page
+            </Link>
+            <Link
+              href="/resume"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="btn-primary"
+              style={{ justifyContent: "center" }}
+            >
+              <FileText size={16} /> Resume (PDF)
+            </Link>
           </div>
         </div>
       </div>

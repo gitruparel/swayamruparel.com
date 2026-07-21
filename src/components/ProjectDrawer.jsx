@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { X, Lock, FileText } from "lucide-react";
+import { X, Lock, FileText, ExternalLink, Network, FileCode, CheckCircle2 } from "lucide-react";
 import { Github } from "@/components/Icons";
+import BrowserFrame from "@/components/BrowserFrame";
 
 export default function ProjectDrawer({ project, isOpen, onClose }) {
   // Close on Escape key press
@@ -22,8 +23,6 @@ export default function ProjectDrawer({ project, isOpen, onClose }) {
 
   if (!project) return null;
 
-  const isRedAccent = project.id === "f1-strategy-simulator";
-
   return (
     <>
       {/* Backdrop */}
@@ -36,21 +35,16 @@ export default function ProjectDrawer({ project, isOpen, onClose }) {
       {/* Modal Container */}
       <div className={`drawer-container ${isOpen ? "active" : ""}`}>
         <div className="drawer-header">
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-            <span 
-              className={`build-tag ${project.isConfidential ? "confidential" : ""}`} 
-              style={{ 
-                width: "fit-content",
-                color: project.isConfidential ? "#EF4444" : (isRedAccent ? "var(--accent-red)" : "var(--primary-accent)"),
-                borderColor: project.isConfidential ? "rgba(239, 68, 68, 0.2)" : (isRedAccent ? "rgba(220, 38, 38, 0.2)" : "rgba(37, 99, 235, 0.2)"),
-                backgroundColor: project.isConfidential ? "rgba(239, 68, 68, 0.05)" : (isRedAccent ? "rgba(220, 38, 38, 0.05)" : "rgba(37, 99, 235, 0.05)")
-              }}
-            >
-              {project.category}
-            </span>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+            <span className="build-tag">{project.category}</span>
+            {project.status && (
+              <span className="status-badge status-live" style={{ fontSize: "0.7rem", padding: "0.15rem 0.45rem" }}>
+                <span className="status-dot" /> {project.status}
+              </span>
+            )}
           </div>
           <button 
-            className={`drawer-close ${isRedAccent ? "red-close" : ""}`} 
+            className="drawer-close" 
             onClick={onClose} 
             aria-label="Close details"
           >
@@ -59,54 +53,35 @@ export default function ProjectDrawer({ project, isOpen, onClose }) {
         </div>
 
         <div className="drawer-content">
-          <h2 style={{ 
-            fontFamily: "var(--font-space-grotesk)",
-            fontSize: "2rem", 
-            marginBottom: "1.5rem", 
-            fontWeight: "800",
-            letterSpacing: "-0.03em"
-          }}>
-            {project.name}
-          </h2>
+          <h2 className="drawer-title">{project.name}</h2>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", marginBottom: "1.5rem" }}>
+            {project.oneLiner}
+          </p>
 
-          {/* Project Screenshot Visual inside Modal */}
+          {/* Browser Frame Visual inside Drawer */}
           {project.image && (
-            <div className="drawer-visual" style={{ marginBottom: "2rem" }}>
-              <img 
-                src={project.image} 
-                alt={`${project.name} screenshot preview`} 
-                className="drawer-image"
-              />
+            <div style={{ marginBottom: "2rem" }}>
+              <BrowserFrame title={project.browserFrameTitle || `${project.id}.swayamruparel.com`}>
+                <img 
+                  src={project.image} 
+                  alt={`${project.name} preview`} 
+                  className="drawer-image"
+                />
+              </BrowserFrame>
             </div>
           )}
 
-          {/* Notion-style properties */}
+          {/* Metadata Properties */}
           <div className="drawer-meta-section">
-            <div className="drawer-meta-label">Status</div>
-            <div className="drawer-meta-value" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              {project.currentStatus ? (
-                <span style={{ color: project.id === "testready" ? "#10B981" : "var(--text-primary)", fontWeight: 600 }}>
-                  {project.currentStatus}
-                </span>
-              ) : project.isConfidential ? (
-                <>
-                  <Lock size={12} style={{ color: "#EF4444" }} />
-                  <span style={{ color: "#EF4444", fontWeight: 600 }}>Private / Confidential</span>
-                </>
-              ) : (
-                <>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }} />
-                  <span>Open Source</span>
-                </>
-              )}
-            </div>
-
             <div className="drawer-meta-label">Timeline</div>
             <div className="drawer-meta-value">{project.timeline}</div>
 
-            <div className="drawer-meta-label">Stack</div>
+            <div className="drawer-meta-label">Status</div>
+            <div className="drawer-meta-value">{project.status}</div>
+
+            <div className="drawer-meta-label">Built With</div>
             <div className="drawer-meta-value" style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-              {project.tech.map((t) => (
+              {project.builtWith.map((t) => (
                 <span key={t} className="build-tech-pill" style={{ margin: 0 }}>
                   {t}
                 </span>
@@ -116,135 +91,130 @@ export default function ProjectDrawer({ project, isOpen, onClose }) {
 
           <hr style={{ border: 0, height: "1px", backgroundColor: "var(--border-color)", margin: "2rem 0" }} />
 
-          {/* Structured Engineering Case Study Body */}
+          {/* Structured Case Study Body */}
           <div className="drawer-body">
-            {/* Overview */}
-            <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-              Overview
-            </div>
-            <p className="drawer-body-text">{project.longDescription}</p>
-
-            {/* Why I Built It */}
-            {project.whyBuilt && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Why I Built It
-                </div>
-                <p className="drawer-body-text">{project.whyBuilt}</p>
-              </>
-            )}
-
             {/* Problem */}
             {project.problem && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Problem
-                </div>
+              <div className="drawer-section">
+                <div className="drawer-section-title">Problem</div>
                 <p className="drawer-body-text">{project.problem}</p>
-              </>
+              </div>
             )}
 
-            {/* Vision */}
-            {project.vision && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Vision
-                </div>
-                <p className="drawer-body-text">{project.vision}</p>
-              </>
+            {/* Solution */}
+            {project.solution && (
+              <div className="drawer-section">
+                <div className="drawer-section-title">Solution</div>
+                <p className="drawer-body-text">{project.solution}</p>
+              </div>
             )}
 
-            {/* Architecture */}
+            {/* Impact */}
+            {project.impact && (
+              <div className="drawer-section">
+                <div className="drawer-section-title">Impact & Outcome</div>
+                <p className="drawer-body-text">{project.impact}</p>
+              </div>
+            )}
+
+            {/* Architecture & Flow Diagrams Slot */}
             {project.architecture && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Architecture & Systems
+              <div className="drawer-section">
+                <div className="drawer-section-title" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <Network size={16} /> Architecture & System Flow
                 </div>
                 <p className="drawer-body-text">{project.architecture}</p>
-              </>
+
+                {/* Optional Future Architecture Diagram Image / Flowchart Slot */}
+                {project.architectureDiagram && (
+                  <div style={{ marginTop: "1rem" }}>
+                    <BrowserFrame title="Architecture Flow Diagram">
+                      <img src={project.architectureDiagram} alt="Architecture Diagram" style={{ width: "100%" }} />
+                    </BrowserFrame>
+                  </div>
+                )}
+              </div>
             )}
 
             {/* Major Features */}
             {project.majorFeatures && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Major Features
-                </div>
+              <div className="drawer-section">
+                <div className="drawer-section-title">Major Features</div>
                 <ul className="drawer-bullets">
                   {project.majorFeatures.map((feat, i) => (
                     <li key={i}>{feat}</li>
                   ))}
                 </ul>
-              </>
+              </div>
             )}
 
             {/* Engineering Challenges */}
             {project.challenges && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Engineering Challenges
-                </div>
+              <div className="drawer-section">
+                <div className="drawer-section-title">Engineering Challenges</div>
                 <ul className="drawer-bullets">
                   {project.challenges.map((c, i) => (
                     <li key={i}>{c}</li>
                   ))}
                 </ul>
-              </>
+              </div>
+            )}
+
+            {/* Research Paper Slot */}
+            {project.paperBadge && (
+              <div className="drawer-section">
+                <div className="drawer-section-title" style={{ display: "flex", alignItems: "center", gap: "0.4rem", color: "#10B981" }}>
+                  <FileText size={16} /> Publication / Paper
+                </div>
+                <div className="paper-badge-box">
+                  <span>{project.paperBadge}</span>
+                </div>
+              </div>
             )}
 
             {/* Future Roadmap */}
             {project.futureRoadmap && (
-              <>
-                <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)" }}>
-                  Future Roadmap
-                </div>
+              <div className="drawer-section">
+                <div className="drawer-section-title">Future Roadmap</div>
                 <p className="drawer-body-text">{project.futureRoadmap}</p>
-              </>
+              </div>
             )}
 
-            {/* Links & Resources */}
-            <div className="drawer-section-title" style={{ color: isRedAccent ? "var(--accent-red)" : "var(--primary-accent)", marginTop: "2rem" }}>
-              Links & Resources
-            </div>
-            <div style={{ display: "flex", gap: "1rem", marginTop: "1rem", flexWrap: "wrap" }}>
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary drawer-action-btn"
-                >
-                  Visit {project.name} ↗
-                </a>
-              )}
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary drawer-action-btn"
-                >
-                  <Github size={14} />
-                  Source Code
-                </a>
-              )}
-              {project.paper && (
-                <a
-                  href={project.paper}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary drawer-action-btn"
-                >
-                  <FileText size={14} />
-                  Read Paper
-                </a>
-              )}
-              {project.isConfidential && !project.liveUrl && (
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--text-muted)", fontSize: "0.9rem" }}>
-                  <Lock size={14} />
-                  <span>Details available upon request.</span>
-                </div>
-              )}
+            {/* Action Links */}
+            <div className="drawer-section" style={{ marginTop: "2rem" }}>
+              <div className="drawer-section-title">Links & Resources</div>
+              <div style={{ display: "flex", gap: "1rem", marginTop: "1rem", flexWrap: "wrap" }}>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary drawer-action-btn"
+                  >
+                    Visit {project.name} ↗
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary drawer-action-btn"
+                  >
+                    <Github size={14} /> Source Code
+                  </a>
+                )}
+                {project.paperUrl && (
+                  <a
+                    href={project.paperUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary drawer-action-btn"
+                  >
+                    <FileText size={14} /> Read IEEE Paper
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
