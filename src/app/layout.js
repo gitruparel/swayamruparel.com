@@ -1,7 +1,6 @@
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import CommandPalette from "@/components/CommandPalette";
 import EasterEggModal from "@/components/EasterEggModal";
 
 const inter = Inter({
@@ -135,7 +134,6 @@ export default function RootLayout({ children }) {
 
         <div>
           <Navbar />
-          <CommandPalette />
           <EasterEggModal />
         </div>
 

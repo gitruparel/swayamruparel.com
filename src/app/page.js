@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Mail, FileText, ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import { Mail, FileText, ArrowRight, ArrowUpRight, CheckCircle2, ChevronRight, Copy, Check } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
 import { animate, stagger } from "animejs";
 
@@ -20,18 +20,29 @@ import TechStack from "@/components/TechStack";
 export default function Home() {
   const [activeProject, setActiveProject] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   const testreadyProject = projects.find((p) => p.id === "testready");
   const deptProject = projects.find((p) => p.id === "dept-internship");
   const gridProjects = projects.filter((p) => !p.isFlagship);
 
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("swayam.ruparel@gmail.com");
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch {
+      window.location.href = "mailto:swayam.ruparel@gmail.com";
+    }
+  };
+
   useEffect(() => {
     // Anime.js entrance stagger for Hero elements
     try {
-      animate(".hero-subtitle, .hero-title, .hero-desc, .hero-actions", {
+      animate(".hero-subtitle, .hero-title, .hero-contact-dock, .hero-desc, .hero-actions", {
         translateY: [25, 0],
         opacity: [0, 1],
-        delay: stagger(120),
+        delay: stagger(100),
         duration: 800,
         ease: "outCubic",
       });
@@ -67,6 +78,67 @@ export default function Home() {
           <div className="hero-content">
             <span className="hero-subtitle">Computer Engineering Student</span>
             <h1 className="hero-title">SWAYAM<br />RUPAREL</h1>
+
+            {/* Prominent Hero Contact & Social Dock */}
+            <div className="hero-contact-dock">
+              <div className="hero-contact-email-card">
+                <a 
+                  href="mailto:swayam.ruparel@gmail.com" 
+                  className="hero-email-direct"
+                  title="Send email to swayam.ruparel@gmail.com"
+                >
+                  <span className="hero-email-icon-wrapper">
+                    <Mail size={16} />
+                  </span>
+                  <span className="hero-email-address">swayam.ruparel@gmail.com</span>
+                </a>
+                <button 
+                  onClick={handleCopyEmail}
+                  className={`hero-email-copy-action ${emailCopied ? "copied" : ""}`}
+                  title="Copy email address"
+                  aria-label="Copy email address"
+                >
+                  {emailCopied ? (
+                    <>
+                      <Check size={13} className="copy-state-icon" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={13} className="copy-state-icon" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="hero-contact-socials">
+                <a
+                  href="https://github.com/gitruparel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-social-pill"
+                  title="GitHub: gitruparel"
+                >
+                  <Github size={16} />
+                  <span className="social-pill-label">GitHub</span>
+                  <span className="social-pill-handle">/gitruparel</span>
+                  <ArrowUpRight size={13} className="social-pill-arrow" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/swayam-ruparel-577925295/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-social-pill"
+                  title="LinkedIn: Swayam Ruparel"
+                >
+                  <Linkedin size={16} />
+                  <span className="social-pill-label">LinkedIn</span>
+                  <span className="social-pill-handle">/swayam-ruparel</span>
+                  <ArrowUpRight size={13} className="social-pill-arrow" />
+                </a>
+              </div>
+            </div>
 
             <p className="hero-desc">
               Building production-ready software, AI systems, developer tools, and hardware projects.
